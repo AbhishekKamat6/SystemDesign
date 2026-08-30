@@ -19,7 +19,7 @@ class Door:
         self._obstructed = value
 
     def open(self):
-        self.open = True
+        self._is_open = True
 
     def close(self)->bool:
         if self._obstructed == True:

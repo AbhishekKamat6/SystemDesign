@@ -30,7 +30,7 @@ class StopSet:
     def contains(self,floor:int)->bool:
         with self._lock : 
            index = bisect.bisect_left(self._stops,floor)
-           return index < len(floor) and self._stops[index] == floor
+           return index < len(self._stops) and self._stops[index] == floor
 
     def floor(self,floor:int)->int|None:
        """Largest stop <= floor, or None."""

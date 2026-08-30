@@ -24,7 +24,7 @@ class CarStatus:
             id = car.id,
             current_floor = car.current_floor,
             direction = car.direction,
-            state = car.state,
+            state_name = car.state,
             in_service=car.in_service,
             overloaded=car.overloaded,
             door_open=car.door.is_open,

@@ -8,7 +8,7 @@ def scenerio_look_sweep_and_observer()->None :
     ctrl = ElevatorController(car_count=2, floors=15, strategy=NearestCarStrategy())
 
     ctrl.request_pickup(5, Direction.UP)
-    ctrl.request_pickup(3, Direction.UP)
+    ctrl.request_pickup(3, Direction.DOWN)
     for t in range(8):
         ctrl.step()
 
@@ -29,14 +29,14 @@ def scenario_overload_blocks_movement() -> None:
     print("\n=== 4. Overload refuses movement even with a stop pending ===")
     ctrl = ElevatorController(car_count=1, floors=15, strategy=NearestCarStrategy())
     ctrl.request_pickup(9, Direction.UP)
-    ctrl.cars[0].is_overloaded = True
+    ctrl.cars[0].overloaded = True
 
     for t in range(3):
         ctrl.step()
     status = ctrl.get_status()[0]
     print(f"floor after 3 ticks while overloaded: {status.current_floor}  (expect 0, unmoved)")
 
-    ctrl.cars[0].is_overloaded = False
+    ctrl.cars[0].overloaded = False
     for t in range(9):
         ctrl.step()
     status = ctrl.get_status()[0]
@@ -55,8 +55,8 @@ def scenario_maintenance_redispatch() -> None:
 
 
 if __name__ == "__main__":
-    scenerio_look_sweep_and_observer()
+    # scenerio_look_sweep_and_observer()
     # scenario_duplicate_dedup()
-    # scenario_overload_blocks_movement()
+     scenario_overload_blocks_movement()
     # scenario_maintenance_redispatch()
 

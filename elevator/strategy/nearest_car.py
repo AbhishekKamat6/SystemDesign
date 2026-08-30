@@ -1,7 +1,7 @@
 from dataclasses import dataclass
+from core.elevator import Elevator
 from strategy.scheduling_strategy import SchedulingStrategy
 from models.request import HallRequest
-from core.controller import CarStatus
 from models.enums import Direction
 
 PENALTY = 100
@@ -22,7 +22,7 @@ def is_on_the_Way(car_direction:Direction, car_floor:int , request:HallRequest)-
 @dataclass(slots=True)
 class NearestCarStrategy(SchedulingStrategy):
 
-    def pick_car(self, cars:list[CarStatus] , request:HallRequest)->CarStatus:
+    def pick_car(self, cars:list[Elevator] , request:HallRequest)->Elevator:
         best = None
         best_score = None
 

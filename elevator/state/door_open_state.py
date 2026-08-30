@@ -15,7 +15,7 @@ class DoorOpenState(ElevatorState):
 
     def step(self,car):
 
-        if car.is_overloaded : 
+        if car.overloaded : 
             return
 
         self.dwell -= 1

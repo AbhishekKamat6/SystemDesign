@@ -8,7 +8,7 @@ class MovingState(ElevatorState):
        if car.overloaded : 
            return
 
-       car.move_one_floor(car.current_floor)
+       car.move_one_floor()
 
        if car.stops.contains(car.current_floor):
            car.stops.remove(car.current_floor)
