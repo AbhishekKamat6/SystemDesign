@@ -3,7 +3,7 @@ from models.enums import Ingredient
 from models.enums import DrinkType
 from exceptions.exception import UnknownDrinkException
 
-@dataclass(slots=True,Frozen=True)
+@dataclass(slots=True,frozen=True)
 class Reciepe : 
    needs : dict[Ingredient,int]
    price : int

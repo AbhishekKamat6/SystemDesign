@@ -3,7 +3,7 @@ from states.base import MachineState
 from beverage.base_beverage import BaseBeverage
 from beverage.addons import ExtraMilk , ExtraSugar
 from models.enums import AddOn
-from exceptions.exception import InsufficientBalanceException
+from exceptions.exception import InsufficientBalanceException , IngredientUnavailableException , IllegalStateException
 
 @dataclass(slots=True)
 class HasMoneyState(MachineState):
@@ -12,7 +12,7 @@ class HasMoneyState(MachineState):
         machine.add_balance(amount)
 
     def select_drink(self,machine,drink_type,addons):
-        beverage = BaseBeverage(drink_type,machine.book.recipe_for(drink_type))
+        beverage = BaseBeverage(drink_type,machine.book.get_reciepe(drink_type))
 
         for addon in addons:
             beverage = self._decorate(beverage,addon)
@@ -21,8 +21,15 @@ class HasMoneyState(MachineState):
             raise InsufficientBalanceException(beverage.cost,machine.balance)
 
         needs = beverage.needs
-        if not machine.book.has_ingredients(needs):
-            raise InsufficientBalanceException(beverage.cost,machine.balance)
+        if not machine.inventory.try_reserve(needs):
+            raise IngredientUnavailableException(needs)
+
+        machine.set_pending(beverage,needs)
+
+        from states.brewing_state import BrewingState
+
+        machine.state = BrewingState()
+        machine.dispense()
 
 
     def _decorate(self,beverage,addon:AddOn):
@@ -34,3 +41,14 @@ class HasMoneyState(MachineState):
                 return ExtraSugar(beverage)
             case _:
                 raise ValueError(addon)
+
+    
+    def dispense(self, machine):
+        raise IllegalStateException("Select a drink first")
+
+    
+    def refund(self, machine):
+        machine.refund_balance()
+
+        from states.idle_state import IdleState
+        machine.state = IdleState()

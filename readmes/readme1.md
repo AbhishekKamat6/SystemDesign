@@ -84,7 +84,8 @@ def pick_car(self) -> Elevator | None:
     ...
 ```
 
-Python postpones evaluation of the annotation, so `Elevator` does not need to be imported at runtime.
+P
+ython postpones evaluation of the annotation, so `Elevator` does not need to be imported at runtime.
 
 ---
 

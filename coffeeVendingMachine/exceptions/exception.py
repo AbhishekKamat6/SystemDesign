@@ -16,3 +16,13 @@ class InsufficientBalanceException(Exception):
     def __init__(self,cost,balance):
         super().__init__(f"Cost {cost} exceed balance {balance}")
 
+class IngredientUnavailableException(Exception):
+    def __init__(self, needs):
+        super().__init__(f"Ingredients unavailable for needs: {needs}")
+        self.needs = needs
+
+
+class BrewFailureException(Exception):
+    """Raised when the physical brew hardware fails mid-pour."""
+
+

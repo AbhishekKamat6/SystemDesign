@@ -11,12 +11,12 @@ class IngredientInventory:
     def try_reserve(self,needs:dict[Ingredient,int])->bool:
 
         with self.lock : 
-            for ingredient , amount in needs.items():
-                if self.stock.get(ingredient,0) < amount :
+            for ingredient , quantity in needs.items():
+                if self.stock.get(ingredient,0) < quantity :
                     return False
 
-            for ingredient , amount in needs.items():
-                self.stock[ingredient] = self.stock.get(ingredient,0) - amount
+            for ingredient , quantity in needs.items():
+                self.stock[ingredient] = self.stock.get(ingredient,0) - quantity
 
             return True
 

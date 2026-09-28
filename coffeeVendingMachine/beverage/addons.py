@@ -18,8 +18,8 @@ class ExtraMilk(BeverageDecorator):
         return n
 
     @property
-    def description(self)->str:
-        return f"{self.inner.description} + extra milk"
+    def description(self):
+        return print(f"{self.inner.description} + extra milk")
 
 @dataclass(slots=True)
 class ExtraSugar(BeverageDecorator):

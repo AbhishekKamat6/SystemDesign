@@ -20,6 +20,6 @@ class BaseBeverage(Beverage):
 
     @property
     def description(self)->str:
-        return self.drink_type.description
+        return self.drink_type.name
 
 
